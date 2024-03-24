@@ -14,26 +14,30 @@ const LeftSidebar = () => {
   //   imageUrl: "",
   // };
 
-const navigate = useNavigate()
-  const {dispatch,user}= useAuthContext()
+  const navigate = useNavigate();
+  const { dispatch, user } = useAuthContext();
 
-const logout = ()=>{
-  localStorage.removeItem("token");
-  dispatch({type:"LOGOUT",payload:null})
-  navigate("/sign-in")
-}
-
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch({ type: "LOGOUT", payload: null });
+    navigate("/sign-in");
+  };
 
   return (
     <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
+      {/* to jest cały ten prostokąt  */}
 
-        <Link to={`/profile/${user?.id}`} className="flex gap-3 items-center">
+      <div className="flex flex-col gap-6">
+        {/* to jest div zawierający ikone logowania od home do archive, */}
+
+        <Link to={`/profile/${user?.id}`} className="flex gap-6 items-center">
           <img
             src={user?.imageUrl || "/assets/icons/profile-placeholder.svg"}
-            alt="profile"
+            alt="profile-avatar"
             className="h-14 w-14 rounder-full"
           />
+          {/* obrazek usera */}
+
           <div className="flex flex-col">
             <p className="body-bold">{user?.first_name}</p>
             <p className="small-regular text-light-3">{user?.role}</p>
@@ -42,6 +46,8 @@ const logout = ()=>{
         <ul className="flex flex-col gap-6">
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;
+
+            // to jest lista zawierająca project tickets users archive
 
             return (
               <li
@@ -52,11 +58,11 @@ const logout = ()=>{
               >
                 <NavLink
                   to={link.route}
-                  className="flex gap-4 items-center p-4"
+                  className="flex gap-3 items-center p-4"
                 >
                   <img
-                  width={22}
-                  height={22}
+                    width={22}
+                    height={22}
                     src={link.imgURL}
                     alt="link-label"
                     className={`group-hover:invert-white ${
@@ -64,13 +70,13 @@ const logout = ()=>{
                     }`}
                   />
                   {link.label}
-             
                 </NavLink>
               </li>
             );
           })}
         </ul>
       </div>
+
       <Button
         variant="ghost"
         className="shad-button_ghost"
@@ -79,6 +85,7 @@ const logout = ()=>{
         <img src="/assets/icons/logout.svg" alt="logout" />
         <p className="small-medium">Logout</p>
       </Button>
+      {/* to jest button logoutu na dole */}
     </nav>
   );
 };
